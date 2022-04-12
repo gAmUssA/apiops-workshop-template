@@ -1,0 +1,21 @@
+_id: req_wrk_be02cf6993874e7e9554dafe3858c2fe275a143f
+type: Request
+parentId: wrk_be02cf6993874e7e9554dafe3858c2fe
+modified: 1648599255962
+created: 1648599255962
+url: "{{ base_url }}/sessions"
+name: Get a list of breakout sessions
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1648599255962
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

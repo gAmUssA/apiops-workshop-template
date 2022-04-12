@@ -1,0 +1,430 @@
+_id: spc_3ba58382ed224a20a97b19cba8d99b8d
+type: ApiSpec
+parentId: wrk_be02cf6993874e7e9554dafe3858c2fe
+modified: 1649763411315
+created: 1648596452731
+fileName: devnexus-openapi.yaml
+contents: "openapi: 3.0.2
+
+  info:
+
+  \  title: \"Devnexus APIOps Workshop\"
+
+  \  version: \"1.0.0\"
+
+  \  contact:
+
+  \    name: Viktor Gamov
+
+  \    email: viktor@konghq.com
+
+  \    url: https://gamov.io
+
+  \  description: Devnexus Conference API
+
+  \  termsOfService: https://konghq.com/terms/
+
+  servers:
+
+  \  - url: \"https://apiops.kongproxy.me\"
+
+  tags:
+
+  \  - name: session
+
+  \    description: session object
+
+  paths:
+
+  \  /sessions:
+
+  \    get:
+
+  \      summary: Get a list of breakout sessions
+
+  \      operationId: listSessions
+
+  \      tags: [ 'sessions' ]
+
+  \      responses:
+
+  \        '200':
+
+  \          description: OK
+
+  \          content:
+
+  \            application/json:
+
+  \              schema:
+
+  \                type: array
+
+  \                items:
+
+  \                  $ref: \"#/components/schemas/Session\"
+
+  \              examples:
+
+  \                success:
+
+  \                  value:
+
+  \                    - title: Supercharge your Ingress with Kong
+
+  \                      description: During this talk, you will learn how to
+  declaratively enable security, API rate limiting, how to add native gRPC
+  support using Kong Gateway and plugins.
+
+  \                      presenters:
+
+  \                        - Viktor Gamov
+
+  \                    - title: API design and APIOps
+
+  \                      description: Building an API is just the first step.
+  You also need to deploy that API and help your customers onboard to drive API
+  consumption. Design APIs in Insomnia, generate configurations for Kong
+  Gateway, and publish REST, GraphQL, and gRPC services to the Kong Dev Portal
+  to enable your audience. In this workshop, we will go through all steps of the
+  API Management cycle - from designing API specifications to publishing APIs
+  for public consumption.
+
+  \                      isWorkshop: true
+
+  \                      presenters:
+
+  \                        - Viktor Gamov
+
+  \ \ 
+
+  \  \"/sessions/{id}\":
+
+  \    get:
+
+  \      operationId: getSession
+
+  \      description: \"Get detailed information about a session\"
+
+  \      summary: Fetch Devnexus sessions
+
+  \      tags:
+
+  \        - sessions
+
+  \      responses:
+
+  \        200:
+
+  \          description: OK
+
+  \          content:
+
+  \            application/json:
+
+  \              schema:
+
+  \                $ref: \"#/components/schemas/Session\"
+
+  \              examples:
+
+  \                success:
+
+  \                  value:
+
+  \                    title: \"Supercharge your Ingress with Kong\"
+
+  \                    description: /
+
+  \                      During this talk, you will learn how to declaratively
+  enable security, API rate limiting, how to add native gRPC support using Kong
+  Gateway and plugins.
+
+  \                    presenters:
+
+  \                      - Viktor Gamov
+
+  \                    date: 2022-04-12
+
+  \        404:
+
+  \          description: Not Found
+
+  \          content:
+
+  \            application/json:
+
+  \              schema:
+
+  \                $ref: \"#/components/schemas/Error\"
+
+  \              examples:
+
+  \                invalid-id:
+
+  \                  value:
+
+  \                    type:
+  \"https://docs.konghq.com/problem/summit/invalid-id\"
+
+  \                    title: Session could not be found
+
+  \                    detail: \"The session with ID [x87an] could not be
+  found\"
+
+  \                    instance: \"t:dbmwRKNA\"
+
+  \    parameters:
+
+  \      - schema:
+
+  \          type: string
+
+  \        name: id
+
+  \        in: path
+
+  \        required: true
+
+  \        description: The ID of session to load
+
+  \  /products:
+
+  \    get:
+
+  \      summary: List Kong products
+
+  \      tags:
+
+  \        - product
+
+  \      responses:
+
+  \        \"200\":
+
+  \          description: OK
+
+  \          content:
+
+  \            application/json:
+
+  \              schema:
+
+  \                type: array
+
+  \                description: \"List of kong products matching the provided
+  filters\"
+
+  \                uniqueItems: true
+
+  \                items:
+
+  \                  $ref: \"#/components/schemas/Product\"
+
+  \              examples:
+
+  \                success:
+
+  \                  value:
+
+  \                    - name: Gateway
+
+  \                      type: oss
+
+  \                      description: Kong or Kong API Gateway is a
+  cloud-native, platform-agnostic, scalable API Gateway distinguished for its
+  high performance and extensibility via plugins.
+
+  \                    - name: Insomnia
+
+  \                      type: oss
+
+  \                      description: Insomnia is an open-source,
+  cross-platform API Client for GraphQL, REST, and gRPC.
+
+  \                    - name: Developer Portal
+
+  \                      type: enterprise
+
+  \                      description: The Kong Developer Portal provides a
+  single source of truth for all developers to locate, access, and consume
+  services. With intuitive content management for documentation, streamlined
+  developer onboarding, and role-based access control (RBAC), Kong’s Developer
+  Portal provides a comprehensive solution for creating and customizing a
+  unified developer experience.
+
+  \                no-products:
+
+  \                  value: [ ]
+
+  \        \"400\":
+
+  \          description: Bad Request
+
+  \          content:
+
+  \            application/json:
+
+  \              schema:
+
+  \                $ref: \"#/components/schemas/Error\"
+
+  \              examples:
+
+  \                invalid-type:
+
+  \                  value:
+
+  \                    type:
+  \"https://docs.konghq.com/problem/summit/invalid-type\"
+
+  \                    title: Invalid type provided
+
+  \                    detail: \"[ee] is an invalid value. Possible values:
+  [oss, enterprise]\"
+
+  \                    instance: \"t:beQpT0Hn\"
+
+  \      operationId: list-products
+
+  \      parameters:
+
+  \        - schema:
+
+  \            type: string
+
+  \            enum:
+
+  \              - oss
+
+  \              - enterprise
+
+  \          in: query
+
+  \          name: type
+
+  \          description: Only show products that match the provided `type`
+
+  \      description: Fetch information about the products that Kong offer.
+
+
+  components:
+
+  \  schemas:
+
+  \    SessionList:
+
+  \      title: SessionList
+
+  \      type: array
+
+  \      items:
+
+  \        $ref: '#/components/schemas/Session'
+
+  \    Session:
+
+  \      description: A session that is being presented at Devnexus
+
+  \      type: object
+
+  \      properties:
+
+  \        title:
+
+  \          type: string
+
+  \        description:
+
+  \          type: string
+
+  \        presenters:
+
+  \          type: array
+
+  \          items:
+
+  \            type: string
+
+  \        date:
+
+  \          type: string
+
+  \          format: date
+
+  \        isWorkshop:
+
+  \          type: boolean
+
+  \      required:
+
+  \        - title
+
+  \        - description
+
+  \        - presenters
+
+  \      title: \"\"
+
+  \    Error:
+
+  \      description: \"An RFC7807 formatted error\"
+
+  \      type: object
+
+  \      properties:
+
+  \        type:
+
+  \          type: string
+
+  \        title:
+
+  \          type: string
+
+  \        detail:
+
+  \          type: string
+
+  \        instance:
+
+  \          type: string
+
+  \      required:
+
+  \        - type
+
+  \        - title
+
+  \        - instance
+
+  \    Product:
+
+  \      description: A product that Kong offers
+
+  \      type: object
+
+  \      required:
+
+  \        - name
+
+  \        - type
+
+  \        - description
+
+  \      properties:
+
+  \        name:
+
+  \          type: string
+
+  \        type:
+
+  \          type: string
+
+  \        description:
+
+  \          type: string
+
+  \  "
+contentType: yaml

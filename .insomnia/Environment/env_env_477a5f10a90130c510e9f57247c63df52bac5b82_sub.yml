@@ -1,0 +1,18 @@
+_id: env_env_477a5f10a90130c510e9f57247c63df52bac5b82_sub
+type: Environment
+parentId: env_477a5f10a90130c510e9f57247c63df52bac5b82
+modified: 1649706678403
+created: 1648599255964
+name: OpenAPI env
+data:
+  scheme: https
+  base_path: ""
+  host: apiops.kongproxy.me
+dataPropertyOrder:
+  "&":
+    - scheme
+    - base_path
+    - host
+color: null
+isPrivate: false
+metaSortKey: 1648599255964
