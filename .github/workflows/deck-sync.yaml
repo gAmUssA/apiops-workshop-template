@@ -1,0 +1,41 @@
+name: decK action to deploy of api config using Konnect
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deck-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup decK
+        uses: kong/setup-deck@v1
+        with:
+          deck-version: "1.11.0"
+      - name: clone repo
+        uses: actions/checkout@v2
+      - name: Run decK deck-sync
+        env:
+          DECK_KONNECT_EMAIL: ${{ secrets.DECK_EMAIL }}
+          DECK_KONNECT_PASSWORD: ${{ secrets.DECK_PASS }}
+        run: |
+          deck konnect ping
+          deck konnect diff
+
+  deck-sync:
+    needs: deck-diff
+    environment: Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup decK
+        uses: kong/setup-deck@v1
+        with:
+          deck-version: "1.11.0"
+      - name: clone repo
+        uses: actions/checkout@v2
+      - name: Run decK deck-sync
+        env:
+          DECK_KONNECT_EMAIL: ${{ secrets.DECK_EMAIL }}
+          DECK_KONNECT_PASSWORD: ${{ secrets.DECK_PASS }}
+        run: |
+          deck konnect sync
